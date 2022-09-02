@@ -27,7 +27,7 @@ class Usuario {
     }
 }
 
-const usuario = new Usuario ('Luis','Perez',[{nombre: "Juego de tronos", autor: "George R. R. Martin"}], ["perro", "gato"]);
+const usuarioPrueba = new Usuario ('Luis','Perez',[{nombre: "Juego de tronos", autor: "George R. R. Martin"}], ["perro", "gato"]);
 
 console.log(`Bienvenido ${usuario.getFullName()}`);
 console.log(`El usuario posee ${usuario.countMascotas()} mascotas`);
