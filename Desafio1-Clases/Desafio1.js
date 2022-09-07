@@ -29,13 +29,13 @@ class Usuario {
 
 const usuarioPrueba = new Usuario ('Luis','Perez',[{nombre: "Juego de tronos", autor: "George R. R. Martin"}], ["perro", "gato"]);
 
-console.log(`Bienvenido ${usuario.getFullName()}`);
-console.log(`El usuario posee ${usuario.countMascotas()} mascotas`);
+console.log(`Bienvenido ${usuarioPrueba.getFullName()}`);
+console.log(`El usuario posee ${usuarioPrueba.countMascotas()} mascotas`);
 
-usuario.addMascota("caballo");
-usuario.addMascota("serpiente");
-console.log(`El usuario posee ${usuario.countMascotas()} mascotas`);
+usuarioPrueba.addMascota("caballo");
+usuarioPrueba.addMascota("serpiente");
+console.log(`El usuario posee ${usuarioPrueba.countMascotas()} mascotas`);
 
-usuario.addBook("El principito", "Antoine de Saint-Exupéry");
-usuario.addBook("Harry Potter y el Caliz de Fuego", "J. K. Rowling");
-console.log(`Los libros favoritos del usuario son: ${usuario.getBookNames()}`);
+usuarioPrueba.addBook("El principito", "Antoine de Saint-Exupéry");
+usuarioPrueba.addBook("Harry Potter y el Caliz de Fuego", "J. K. Rowling");
+console.log(`Los libros favoritos del usuario son: ${usuarioPrueba.getBookNames()}`);
