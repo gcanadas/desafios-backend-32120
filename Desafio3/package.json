@@ -4,8 +4,8 @@
   "description": "",
   "main": "Desafio3.js",
   "scripts": {
-    "start": "node Desafio3.js",
-    "dev": "nodemon Desafio3.js"
+    "start": "node main.js",
+    "dev": "nodemon main.js"
   },
   "author": "Gabriel Cañadas",
   "license": "ISC",
