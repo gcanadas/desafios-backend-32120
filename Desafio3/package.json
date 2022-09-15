@@ -1,0 +1,15 @@
+{
+  "name": "desafio3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Desafio3.js",
+  "scripts": {
+    "start": "node Desafio3.js",
+    "dev": "nodemon Desafio3.js"
+  },
+  "author": "Gabriel Cañadas",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
