@@ -28,7 +28,7 @@ app.get('/productos', (req, res) => {
 app.get('/productoRandom', (req, res) => {
     const getRandom = async() => {
         const allProducts = await productos.getAll();
-        randomNumber = Math.floor((Math.random() * (allProducts.length + 1)) + 0);
+        const randomNumber = Math.floor((Math.random() * (allProducts.length + 1)) + 0);
         const dataFilter = allProducts.filter((product, index) => index === randomNumber);
         res.send(dataFilter);
     }
