@@ -10,15 +10,15 @@
     <h1>Desafio 4 - API RESTful - Comisión 32120</h1>
     <h2>Formulario para agregar productos</h2>
     
-    <form action="http://localhost:8080/api/productos" method="post">
+    <form action="http://localhost:8080/api/productos" method="post" enctype="multipart/form-data">
       <label for="title">Nombre del Producto</label> </br>
       <input type="text" name="title" placeholder="Ingrese el nombre del producto " required>
       <hr>
       <label for="price">Precio del Producto</label> </br>
       <input type="number" name="price" placeholder="Ingrese el precio del producto" required>
       <hr>
-      <label for="thumbnail">Imagen del Producto</label> </br>
-      <input type="text" name="thumbnail" placeholder="Ingrese el link de la imagen del producto" required>
+      <label for="thumbnail">Suba una imagen del Producto</label> </br>
+      <input type="file" name="single-file" required/>
       <hr>
       <button type="submit">Cargar</button>
     </form>

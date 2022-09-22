@@ -1,4 +1,6 @@
 const express = require('express');
+const multer  = require('multer');
+
 const { Router } = express;
 
 const router = Router(Router);
@@ -35,9 +37,20 @@ const productos = [
     thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Xbox-360-Consoles-Infobox.png',
     id: 4
   },
-]
+];
 
-let nextID = 5
+let nextID = 5;
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`)
+  }
+})
+
+const upload = multer({ storage })
 
 router.get('/productos', (req, res) => {
   res.status(STATUS_CODE.OK).json(productos);
@@ -54,8 +67,18 @@ router.get('/productos/:id', (req, res) => {
   }
 })
 
-router.post('/productos', (req, res) => {
-  let data = req.body;
+router.post('/productos', upload.single('single-file'), (req, res, next) => {
+  const { file } = req
+  if (!file) {
+    const error = new Error('Archivo no encontrado.')
+    error.httpStatusCode = 400
+    return next()
+  }
+  data = {
+    title: req.body.title,
+    price: req.body.price,
+    thumbnail: `http://localhost:8080/${file.path}`
+  }
   data = {...data, id: nextID};
   nextID++;
   productos.push(data);

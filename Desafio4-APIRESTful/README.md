@@ -8,6 +8,10 @@ NODE_PORT=8080
 ```
 Acá estamos configurando una variable de entorno para nuestro proyecto, en este caso el puerto que usará el servidor.
 
+## Testing
+
+Para testear el funcionamiento del código importar el archivo `postman_test.json` en [Postman](https://www.postman.com/). 
+
 ## Ejecutar en producción
 
 
