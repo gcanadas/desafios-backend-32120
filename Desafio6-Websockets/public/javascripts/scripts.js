@@ -8,16 +8,16 @@
     let products = [];
     const socket = io();
 
-    function updateTable(products = []) {
-        productsTable.innerText = '';
-        products.forEach((data) => {
-            const fila = document.createElement("tr");
-            fila.innerHTML = `<td>${data.title}</td>
-                                <td>$${data.price}</td>
-                                <td><img src="${data.thumbnail}" alt="${data.title}"></td>`;
-            productsTable.appendChild(tr);
-        });
-    };
+    function updateTable(producto) {
+        fetch('./javascripts/templates/productTemplate.hbs')
+            .then(template => template.text())
+            .then(text => {
+                const fila = document.createElement("tr");
+                template = Handlebars.compile(text);
+                fila.innerHTML = template(producto);
+                productsTable.appendChild(fila);
+            })
+    }
 
     socket.on('connect', () => {
         console.log('Conectados al servidor');
@@ -45,7 +45,10 @@
 
     socket.on('historyProducts', (data) => {
         products = data;
-        updateTable(data);
-    })
+        productsTable.innerHTML = '';
+        products.forEach((data) => {
+            updateTable(data);
+        });
+    });
 
 })();
