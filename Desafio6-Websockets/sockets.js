@@ -1,4 +1,7 @@
 const { Server } = require("socket.io");
+const messageController = require("./controllers/messageController");
+
+const handlerMessage = new messageController("./mensajes.txt");
 
 let io;
 
@@ -23,7 +26,8 @@ const productos = [
         price: 50000,
         thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/0/03/Xbox-360-Consoles-Infobox.png',
       },
-    ];
+];
+let messages = [];
 
 function initSocket(httpServer) {
       io = new Server(httpServer);
@@ -41,11 +45,32 @@ function setEvents(io) {
             io.emit('productNotification', data);
         });
 
+        (async function () {
+          try{
+            messages = await handlerMessage.getAll();
+          } catch(err){
+              console.log(err)
+          }
+        })();
+
+        io.emit('historyMessage', messages);
+
+        socketClient.on('newMessage', (message) =>{
+          messages.push(message);
+            (async function (){
+              try{
+                await handlerMessage.save(message);
+              } catch(err){
+                  console.log(err)
+              }
+            })();
+          io.emit('messageNotification', message);
+        });
 
         socketClient.on('disconnect', () => {
             console.log('Se desconecto el cliente con el id:', socketClient.id);
         });
-      });
+    });
 }
 
 
