@@ -51,5 +51,4 @@ function setEvents(io) {
 
 module.exports = {
       initSocket,
-      productos
 };

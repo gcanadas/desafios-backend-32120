@@ -3,12 +3,18 @@
     const productName = document.getElementById('productName');
     const productPrice = document.getElementById('productPrice');
     const productURL = document.getElementById('productURL');
+
     const productsTable = document.getElementById('productsTable');
+    const nonProducts = document.getElementById('nonProducts');
+    const showProducts = document.getElementById('showProducts');
+
 
     let products = [];
     const socket = io();
 
     function updateTable(producto) {
+        document.getElementById("nonProducts").style.display = "none";
+        document.getElementById("showProducts").style.display = "block";
         fetch('./javascripts/templates/productTemplate.hbs')
             .then(template => template.text())
             .then(text => {
@@ -45,10 +51,12 @@
 
     socket.on('historyProducts', (data) => {
         products = data;
-        productsTable.innerHTML = '';
-        products.forEach((data) => {
-            updateTable(data);
-        });
+        if(data.length){
+            productsTable.innerHTML = '';
+            products.forEach((data) => {
+                updateTable(data);
+            });
+        }
     });
 
 })();
