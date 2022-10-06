@@ -1,0 +1,35 @@
+<h1>{{title}}</h1>
+<h4 style="color: blue;">Ingrese Producto</h4>
+    <form action="/productos" id="productForm" method="post">
+      <label for="name"><i><strong>Nombre</strong></i></label></br>
+      <input type="text" name="name" id="productName" placeholder="Por ej: Calculadora" required></br>
+      <label for="price"><i><strong>Precio</strong></i></label></br>
+      <input type="text" name="price" id="productPrice" placeholder="Por ej: 123.45" required></br>
+      <label for="URL"><i><strong>Foto URL</strong></i></label></br>
+      <input type="text" name="URL" id="productURL" placeholder="Por ej: https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-512.png" required></br>
+      <button type="submit">Enviar</button></form><br>
+    </form>
+
+    <hr>
+
+    <h4 style="color:darkred;">Lista de Productos</h4>
+    {{#if isEmpty}}
+        <p style="text-align:center; width:30%; margin:auto; padding:15px; background-color:orange; margin-bottom:25vh">No se encontraron productos</p>
+    {{else}}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+            <tbody id="productsTable">
+                {{!-- <tr>
+                    <td><%= item.name %></td>
+                    <td><%= item.price %></td>
+                    <td><img src="<%= item.URL %>" alt="<%= item.name %>" style="width: 200px"></td>
+                </tr> --}}
+            </tbody>
+        </table>
+    {{/if}}
