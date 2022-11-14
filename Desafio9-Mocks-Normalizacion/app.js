@@ -7,6 +7,7 @@ const {engine} = require('express-handlebars')
 
 
 const indexRouter = require('./routes/index');
+const productTest = require('./routes/productTest')
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+app.use('/productos-test', productTest);
 
 
 // catch 404 and forward to error handler

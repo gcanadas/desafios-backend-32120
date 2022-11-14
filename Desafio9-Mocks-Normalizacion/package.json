@@ -9,15 +9,17 @@
   "author": "Gabriel Eduardo Cañadas Fragapane",
   "license": "ISC",
   "dependencies": {
-    "@faker-js/faker": "github:faker-js/faker",
+    "@faker-js/faker": "^7.6.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-handlebars": "^6.0.6",
     "http-errors": "~1.6.3",
     "knex": "^2.3.0",
+    "mongoose": "^6.7.2",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
+    "normalizr": "^3.6.2",
     "socket.io": "^4.5.2",
     "sqlite3": "^5.1.2"
   },

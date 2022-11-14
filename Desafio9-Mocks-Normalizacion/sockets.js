@@ -1,20 +1,16 @@
-// import { Server } from 'socket.io';
-// import {
-//     createTableProducts,
-//     createTableMessages,
-//     insertDB,
-//     getDB,
-// } from './controllers/dbController.js';
-
 const { Server } = require("socket.io");
+const ContenedorMongoDb = require ('./contenedores/contenedorMongoDB')
+const Mensaje = require ('./models/mensajes.js');
 const {
   createTableProducts,
-  createTableMessages,
   insertDB,
   getDB,
-} = require('./controllers/dbController.js')
+} = require('./controllers/dbController.js');
+const normalizarMensaje = require("./controllers/normalizerController.js");
 
 let io;
+
+let Mensajes = new ContenedorMongoDb(Mensaje);
 
 // const productos = [
 //     {
@@ -42,7 +38,7 @@ let io;
 
 (async function(){
 try {
-    await createTableMessages();
+    await Mensajes.connect();
     await createTableProducts();
 } catch (error) {
     console.error(error.message);
@@ -66,14 +62,14 @@ async function setEvents(io) {
             await insertDB(data, 'product');
             io.emit('productNotification', data);
         });
+        
+        const mensajesFromDB = await Mensajes.getAll();
+        const mensajesToEmit = await normalizarMensaje(mensajesFromDB);
+        io.emit('historyMessage', mensajesToEmit);
 
-        await getDB('message').then((messages) => {
-            io.emit('historyMessage', messages);
-        });
-
-        socketClient.on('newMessage', async (message) =>{
-          await insertDB(message, 'message');
-          io.emit('messageNotification', message);
+        socketClient.on('newMessage', async (message) => {
+            await Mensajes.save(message);
+            io.emit('messageNotification', message);
         });
 
         socketClient.on('disconnect', () => {

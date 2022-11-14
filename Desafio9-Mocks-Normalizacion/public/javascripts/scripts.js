@@ -6,8 +6,14 @@
 
     const productsTable = document.getElementById('productsTable');
 
+    const titleMessages = document.getElementById('titleMessages');
+
     const messageForm = document.getElementById('messageForm');
-    const messageEmail = document.getElementById('messageEmail');
+    const messageNombre = document.getElementById('messageNombre');
+    const messageApellido = document.getElementById('messageApellido');
+    const messageEdad = document.getElementById('messageEdad');
+    const messageAlias = document.getElementById('messageAlias');
+    const messageAvatar = document.getElementById('messageAvatar');
     const messageText = document.getElementById('messageText');
     const showMessage = document.getElementById('showMessage');
 
@@ -51,9 +57,18 @@
     function validateMessage (){
         if(emailRegex.test(messageEmail.value) && messageText){
             const data = {
-                email: messageEmail.value,
-                date: Date().toLocaleString(),
-                message: messageText.value,
+                author: {
+                    email: messageEmail.value,
+                    Nombre: messageNombre.value,
+                    Apellido: messageApellido.value,
+                    Edad: messageEdad.value,
+                    alias: messageAlias.value,
+                    avatar: messageAvatar.value,
+                },
+                text: {
+                    date: Date().toLocaleString(),
+                    text: messageText.value,
+                },
             }
             socket.emit('newMessage', data);
             messageText.value = '';
@@ -62,6 +77,26 @@
             alert('Para enviar mensajes debe introducir un mail válido y un mensaje');
         }
     };
+
+    function desnormalizar (message){
+        const autorScheme = new normalizr.schema.Entity( 'author', {}, { idAttribute: 'email' });
+
+        const mensajeScheme = new normalizr.schema.Entity('mensaje', { 
+            author: autorScheme 
+        });
+        const allMensajes = new normalizr.schema.Entity('mensaje', { 
+            text: [mensajeScheme],
+        });
+        const reversedMensajes = normalizr.denormalize( message.result, allMensajes, message.entities );
+
+        const normalizedSize = JSON.stringify(message).length;
+        const originalSize = JSON.stringify(reversedMensajes).length;
+        const totalCompresion = ((normalizedSize * 100) / originalSize).toFixed(2);
+
+        titleMessages.innerText = `Centro de Mensajes (Porcentaje de compresion: ${totalCompresion}%)`;
+        console.log(`Porcentaje de compresion: ${totalCompresion}%`);
+        return reversedMensajes
+    }
 
     socket.on('connect', () => {
         console.log('Conectados al servidor');
@@ -81,9 +116,6 @@
         };
 
         socket.emit('newProduct', data);
-        // productName.value = '';
-        // productPrice.value = '';
-        // productURL.value = '';
         productForm.reset();
         productName.focus();
     })
@@ -104,11 +136,14 @@
     });
 
     socket.on('historyMessage', (message) => {
-        messages = message
-        if(message.length){
-            messages.forEach((message) => {
-                updateChat(message);
-            });
+        const reversedMensajes = desnormalizar(message);
+        if(messages == ""){
+            messages = reversedMensajes.mensaje;
+            if(messages.length){
+                messages.forEach((messages) => {
+                    updateChat(messages);
+                });
+            }
         }
     });
 
