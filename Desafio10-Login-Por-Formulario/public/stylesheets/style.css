@@ -1,0 +1,51 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.title {
+  background-color: #BDECB6;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px; 
+}
+
+.title a {
+  background-color: ##fbbc04;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: 500;
+  color: #000000;
+}
+
+.formLogin {
+  background-color: #bdbdbd;
+  padding: 15px;
+  border-radius: 10px;
+  width: 90%;
+}
+
+.formLogin h1 {
+  font-weight: 500;
+  color: #0000FF;
+}
+
+.formLogin button {
+  background-color: #008F39;
+  width: auto;
+}
+
+.logoutDiv {
+  background-color: #51D1F6;
+  color: #252850;
+  padding: 15px;
+  border-radius: 10px;
+  width: 90%;
+}
+
+a {
+  color: #00B7FF;
+}
