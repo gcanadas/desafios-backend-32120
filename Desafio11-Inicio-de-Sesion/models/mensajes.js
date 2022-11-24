@@ -9,5 +9,3 @@ const mensajeSchema = new Schema({
 const Mensaje = mongoose.model('Mensaje', mensajeSchema, 'mensajes');
 
 module.exports =  Mensaje;
-
-//export default mongoosse.model('Mensaje', mensaje);
