@@ -1,7 +1,11 @@
 <section id="sectionWelcome">
     <div class="title">
         <h1>Bienvenido {{ userName }}</h1>
-        <a href="/logout">Desloguear</a>
+        <form action="/logout" method="POST">
+          <input type="hidden" name="userName" value="{{ userName }}">
+          <button>Logout</button>
+        </form>
+        {{!-- <a href="/logout">Desloguear</a> --}}
     </div>
 </section>
 
