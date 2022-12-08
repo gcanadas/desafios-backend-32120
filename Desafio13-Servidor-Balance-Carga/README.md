@@ -28,3 +28,26 @@ npm start
 ```sh
 npm run dev
 ```
+
+## Comandos a ejecutar
+
+1. Ejecutar el servidor (modos FORK y CLUSTER) con nodemon verificando el número de procesos tomados por node.
+```
+npm run dev -- -p 8081 -m fork
+npm run dev -- -p 8082 -m cluster
+```
+
+2. Ejecutar el servidor (con los parámetros adecuados) utilizando Forever, verificando su correcta operación. Listar los procesos por Forever y por sistema operativo.
+```
+forever start -w app.js -p 8081
+forever list
+Get-Process
+```
+
+3. Ejecutar el servidor (con los parámetros adecuados: modo FORK) utilizando PM2 en sus modos modo fork y cluster. Listar los procesos por PM2 y por sistema operativo.
+```
+pm2 start app.js --name="test_server_1" --watch -- -p 8081
+pm2 start app.js --name="test_server_2" --watch -i max -- -p 8082
+pm2 list
+Get-Process
+```
