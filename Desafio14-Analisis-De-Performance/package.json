@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon --exec node -r dotenv/config ./app.js"
+    "start": "0x app.js",
+    "prof": "node --prof app.js",
+    "dev": "nodemon --exec node -r dotenv/config ./app.js",
+    "test": "node benchmark.js"
   },
   "author": "Gabriel Eduardo Cañadas Fragapane",
   "license": "ISC",

@@ -2,9 +2,9 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+//const logger = require('morgan');
 const {engine} = require('express-handlebars')
-const { initSocket } = require("../sockets");
+const { initSocket } = require("./sockets");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')
 const cors = require('cors');
@@ -18,7 +18,7 @@ const cluster = require ('cluster');
 const os = require ('os');
 
 
-const logger = require ('./logger');
+const logger = require('./logger');
 const indexRouter = require('./routes/index');
 const productTest = require('./routes/productTest')
 const randomRouter = require('./routes/random')
@@ -116,7 +116,7 @@ if (mode === 'cluster' && cluster.isPrimary) {
   })
 
   app.use(cors());
-  app.use(logger('dev'));
+  //app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
@@ -182,8 +182,8 @@ if (mode === 'cluster' && cluster.isPrimary) {
 
   // Ruta para loggear rutas invalidas
   app.get('*', function (req, res) { 
-    logger.warn(`Ruta ${req.path} metodo GET`)
-    res.status(404).send(`${req.path} not found`);
+    logger.warn(`Solicitud de Ruta inexistente - Ruta: ${req.originalUrl} - Metodo: ${req.method}`)
+    res.status(404).send(`${req.originalUrl} not found`);
   })
 
   function onError(error) {

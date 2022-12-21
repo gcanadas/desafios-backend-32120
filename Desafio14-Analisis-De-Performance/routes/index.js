@@ -70,8 +70,18 @@ router.get('/errorRegister', (req, res) => {
   res.render('errorLogin', { title: 'USER ERROR REGISTER', message: 'USUARIO YA REGISTRADO', href: '/register'});
 });
 
-router.get('/info', compression(), (req, res, next) => {
+router.get('/info', (req, res, next) => {
   try {
+    // console.log({
+    //   arguments: process.argv.slice(2),
+    //   path: process.execPath,
+    //   platformName: process.platform,
+    //   processID: process.pid,
+    //   nodeVersion: process.version,
+    //   proyectFolder: process.cwd(),
+    //   rss: process.memoryUsage().rss,
+    //   cpus: os.cpus().length,
+    // });
     const info = {
       arguments: process.argv.slice(2),
       path: process.execPath,

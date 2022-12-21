@@ -6,11 +6,11 @@ const { knex } = require('knex');
 const optionsMysql = {
     client: 'mysql',
     connection: {
-        host: process.env.HOST_DB,
-        port: process.env.PORT_DB,
-        user: process.env.USER_DB,
-        password: process.env.PASS_DB,
-        database: process.env.NAME_DB,
+        host: process.env.HOST_DB || '127.0.0.1',
+        port: process.env.PORT_DB || 3306,
+        user: process.env.USER_DB || 'root',
+        password: process.env.PASS_DB || '',
+        database: process.env.NAME_DB || 'desafio7-sql',
     },
 };
 

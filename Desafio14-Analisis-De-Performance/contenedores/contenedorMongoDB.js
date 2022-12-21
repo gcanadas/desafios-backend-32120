@@ -10,7 +10,9 @@ class ContenedorMongoDb {
             await mongoose.connect(config.config.mongoDB.URI);
             console.log('Conectado correctamente a la Base de datos MongoDb');
         } catch (err) {
-            console.log('Error en el metodo connect de ContenedorMongoDb', err.message);            }
+            logger.error('Error en el metodo connect de ContenedorMongoDb', err.message);
+            //console.log('Error en el metodo connect de ContenedorMongoDb', err.message);            
+        }
     }
     /*Metodo para obtener todos los elementos del archivo*/
     async getAll() {
@@ -18,7 +20,8 @@ class ContenedorMongoDb {
             const data = await this.collection.find({}, { __v: 0 });
             return data;
         } catch (err) {
-            console.log('Error en el metodo getAll de ContenedorMongoDb', err.message);
+            logger.error('Error en el metodo getAll de ContenedorMongoDb', err.message);
+            //console.log('Error en el metodo getAll de ContenedorMongoDb', err.message);
         }
     }
     /*Metodo para obtener un elemento del archivo por id*/
@@ -26,12 +29,14 @@ class ContenedorMongoDb {
         try {
             const data = await this.collection.find({ _id: id });
             if (data.length === 0) {
+                //logger.info(`No se encontraron elementos con el id: ${id} en la base de datos`);
                 console.log(`No se encontraron elementos con el id: ${id} en la base de datos`);
                 return null;
             }
             return data[0];
             } catch (err) {
-                console.log('Error en el metodo getById de ContenedorMongoDb', err.message);
+                logger.error('Error en el metodo getById de ContenedorMongoDb', err.message);
+                //console.log('Error en el metodo getById de ContenedorMongoDb', err.message);
             }
     }
     /*Metodo para guardar un elementos en el archivo*/
@@ -42,7 +47,8 @@ class ContenedorMongoDb {
             console.log(result)
             return result
         } catch (err) {
-            console.log('Error en el metodo save de ContenedorMongoDb', err.message);
+            logger.error('Error en el metodo save de ContenedorMongoDb', err.message);
+            //console.log('Error en el metodo save de ContenedorMongoDb', err.message);
         }
     }
     /*Metodo para eliminar un elementos en el archivo por el id*/
@@ -56,7 +62,8 @@ class ContenedorMongoDb {
             console.log('No se encontro ningun elemento con ese id');
             return
         } catch (err) {
-            console.log('Error en el metodo deleteById de ContenedorMongoDb', err.message);
+            logger.error('Error en el metodo deleteById de ContenedorMongoDb', err.message);
+            //console.log('Error en el metodo deleteById de ContenedorMongoDb', err.message);
         }
     }
     /*Metodo para borrar todos los elementos en el archivo*/
@@ -65,7 +72,8 @@ class ContenedorMongoDb {
             await this.collection.deleteMany({});
             return
         } catch(err) {
-            console.log('Error en el metodo deleteAll de ContenedorMemoria', err.message);
+            logger.error('Error en el metodo deleteAll de ContenedorMongoDb', err.message);
+            //console.log('Error en el metodo deleteAll de ContenedorMemoria', err.message);
         }
     }
     /*Metodo para Modificar */
@@ -74,7 +82,8 @@ class ContenedorMongoDb {
             const result = await this.collection.updateOne({ _id: id },{ $set: element });         
             return result
         } catch (err) {
-            console.log('Error en el metodo updateByID de ContenedorMongoDB', err.message);
+            logger.error('Error en el metodo updateById de ContenedorMongoDb', err.message);
+            // console.log('Error en el metodo updateByID de ContenedorMongoDB', err.message);
         }
     }
 }
