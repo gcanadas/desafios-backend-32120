@@ -1,5 +1,5 @@
 import { schema, normalize } from 'normalizr';
-function normalizarMensaje (data) {
+async function normalizarMensaje (data) {
     let messageModel = {
         id: 'mensaje',
         mensaje: [],

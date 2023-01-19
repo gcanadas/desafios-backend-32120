@@ -1,16 +1,8 @@
 import { Server } from "socket.io";
-import ContenedorMongoDb from './contenedores/contenedorMongoDB';
-import Mensaje from './models/mensajes.js';
-import {
-  createTableProducts,
-  insertDB,
-  getDB,
-} from './controllers/dbController.js';
-import normalizarMensaje from "./controllers/normalizerController.js";
+import ProductoController from './controllers/controllerProductos.js';
+import MensajeController from './controllers/controllerMensajes.js';
 
 let io;
-
-let Mensajes = new ContenedorMongoDb(Mensaje);
 
 // const productos = [
 //     {
@@ -35,16 +27,6 @@ let Mensajes = new ContenedorMongoDb(Mensaje);
 //       },
 // ];
 
-
-(async function(){
-try {
-    await Mensajes.connect();
-    await createTableProducts();
-} catch (error) {
-    console.error(error.message);
-}
-})();
-
 function initSocket(httpServer) {
       io = new Server(httpServer);
       setEvents(io);
@@ -54,21 +36,21 @@ async function setEvents(io) {
     io.on('connection', async (socketClient) => {
         console.log('Se conecto un nuevo cliente con el id', socketClient.id);
 
-        await getDB('product').then((products) => {
+        await ProductoController.getAll().then((products) => {
             io.emit('historyProducts', products);
         });
 
         socketClient.on('newProduct', async (data) => {
-            await insertDB(data, 'product');
+            await ProductoController.save(data);
             io.emit('productNotification', data);
         });
         
-        const mensajesFromDB = await Mensajes.getAll();
-        const mensajesToEmit = await normalizarMensaje(mensajesFromDB);
-        io.emit('historyMessage', mensajesToEmit);
+        const mensajes = await MensajeController.getAll();
+        
+        io.emit('historyMessage', mensajes);
 
         socketClient.on('newMessage', async (message) => {
-            await Mensajes.save(message);
+            await MensajeController.save(message);
             io.emit('messageNotification', message);
         });
 

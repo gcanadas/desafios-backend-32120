@@ -10,7 +10,7 @@ import cors from 'cors';
 import passport from 'passport';
 import {Strategy} from 'passport-local';
 import bcrypt from 'bcrypt';
-import UserModel from './models/users';
+import UserModel from './models/model/users.js';
 import http from 'http';
 import minimist from 'minimist';
 import cluster from 'cluster';
