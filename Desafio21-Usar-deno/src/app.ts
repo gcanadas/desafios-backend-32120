@@ -7,7 +7,7 @@ const app = new Application();
 app.use(router.routes());
 
 app.use(router.allowedMethods())
-   .use(notFound);
+    .use(notFound);
 
 console.log("Server listening on http://localhost:8080");
 
